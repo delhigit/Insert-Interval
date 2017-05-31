@@ -1,0 +1,23 @@
+vector<Interval> insert(vector<Interval>& intervals, Interval newInterval)
+    {
+        int n = intervals.size();
+        int i = 0;
+        
+        vector<Interval> result;
+        
+        while(i < n && intervals[i].end < newInterval.start)
+        result.push_back(intervals[i++]);
+        
+        while(i < n && newInterval.end >= intervals[i].start)
+        {
+            newInterval.start = min(newInterval.start, intervals[i].start);
+            newInterval.end = max(newInterval.end, intervals[i++].end);
+        }
+        
+        result.push_back(newInterval);
+        
+        while(i < n)
+        result.push_back(intervals[i++]);
+        
+        return result;
+    }
